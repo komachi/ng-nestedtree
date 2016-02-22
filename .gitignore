@@ -1,5 +1,6 @@
 build-demo
 .tmp
+Makefile
 
 # Created by https://www.gitignore.io/api/node
 
@@ -46,4 +47,3 @@ bower_components
 .bower-cache
 .bower-registry
 .bower-tmp
-

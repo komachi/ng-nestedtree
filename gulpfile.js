@@ -14,6 +14,13 @@ var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 var cdnizer = require('gulp-cdnizer');
 var ghPages = require('gulp-gh-pages');
+var conventionalGithubReleaser = require('conventional-github-releaser');
+var git = require('gulp-git');
+var fs = require('fs');
+var bump = require('gulp-bump');
+var runSequence = require('run-sequence');
+var spawn = require('child_process').spawn;
+var gutil = require('gulp-util');
 
 gulp.task('jade-demo', function() {
   return gulp.src('demo/index.jade')
@@ -126,14 +133,79 @@ gulp.task('cdnize', ['build-demo'], function() {
       },
       {
         file: 'ng-nestedtree.js',
-        cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/ng-nestedtree.min.js'
+        cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/' +
+          'ng-nestedtree.min.js'
       },
       {
         file: 'ng-nestedtree.css',
-        cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/ng-nestedtree.min.css'
+        cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/' +
+          'ng-nestedtree.min.css'
       }]
     }))
     .pipe(gulp.dest('build-demo'));
+});
+
+
+gulp.task('github-release', function(done) {
+  conventionalGithubReleaser({
+    type: 'oauth'
+  }, {
+    preset: 'angular'
+  }, done);
+});
+
+
+gulp.task('bump-version', function() {
+  return gulp.src(['bower.json', 'package.json'])
+    .pipe(bump({type: 'patch'}).on('error', gutil.log))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('commit-changes', function() {
+  return gulp.src('.')
+    .pipe(git.add())
+    .pipe(git.commit('[Prerelease] Bumped version number'));
+});
+
+gulp.task('push-changes', function(cb) {
+  git.push('origin', 'master', cb);
+});
+
+
+gulp.task('create-new-tag', function(cb) {
+  var version = getPackageJsonVersion();
+  git.tag(version, 'Created Tag for version: ' + version, function(error) {
+    if (error) {
+      return cb(error);
+    }
+    git.push('origin', 'master', {args: '--tags'}, cb);
+  });
+
+  function getPackageJsonVersion() {
+    return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
+  }
+});
+
+gulp.task('npm-publish', function(done) {
+  spawn('npm', ['publish'], { stdio: 'inherit' }).on('close', done);
+});
+
+gulp.task('release', ['build', 'deploy'], function(callback) {
+  runSequence(
+    'bump-version',
+    'commit-changes',
+    'push-changes',
+    'create-new-tag',
+    'github-release',
+    'npm-publish',
+    function(error) {
+      if (error) {
+        gutil.log(error.message);
+      } else {
+        gutil.log('RELEASE FINISHED SUCCESSFULLY');
+      }
+      callback(error);
+    });
 });
 
 gulp.task('build-demo', ['jade-demo', 'concat-js', 'sass', 'demo-js']);

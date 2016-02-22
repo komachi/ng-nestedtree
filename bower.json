@@ -1,7 +1,7 @@
 {
   "name": "ng-nestedtree",
   "description": "Nested tree list directive for angular.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/ng-nestedtree.min.js",
   "authors": [
     "Anton Nesterov"

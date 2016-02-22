@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var serve = require('gulp-serve');
 var jade = require('gulp-jade');
-var minifyHtml = require('gulp-minify-html');
+var htmlmin = require('gulp-htmlmin');
 var ngHtml2Js = require('gulp-ng-html2js');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
@@ -24,11 +24,7 @@ gulp.task('jade-demo', function() {
 gulp.task('ng-templates', function() {
   return gulp.src('tpls/*.jade')
     .pipe(jade())
-    .pipe(minifyHtml({
-      empty: true,
-      spare: true,
-      quotes: true
-    }))
+    .pipe(htmlmin({collapseWhitespace: true}))
     .pipe(ngHtml2Js({
       moduleName: 'ngNestedTreeTemplates',
       prefix: '/ng-nestedtree-templates/'

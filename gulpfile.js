@@ -131,6 +131,10 @@ gulp.task('cdnize', ['build-demo'], function() {
       {
         file: 'ng-nestedtree.js',
         cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/ng-nestedtree.min.js'
+      },
+      {
+        file: 'ng-nestedtree.css',
+        cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/ng-nestedtree.min.css'
       }]
     }))
     .pipe(gulp.dest('build-demo'));

@@ -1,0 +1,6 @@
+{
+  "preset": "node-style-guide",
+  "plugins": ["jscs-angular"],
+  "verbose": true,
+  "requireTrailingComma": null  
+}

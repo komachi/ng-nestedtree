@@ -1,0 +1,4 @@
+span.ngnestedtree-icon(ng-init="child.expand=expand", ng-if="child.childs", ng-click="child.expand=!child.expand; $event.stopPropagation()")
+span.ngnestedtree-title(ng-class="{'ngnestedtree-selected': child.selected}") {{child.title}}
+ul(ng-if="child.childs" ng-show="child.expand==true")
+  li(ng-repeat="child in child.childs track by $index", ng-include="'/ng-nestedtree-templates/inside.html'", ng-click="elementClicked(child); $event.stopPropagation();")

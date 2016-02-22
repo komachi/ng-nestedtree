@@ -1,0 +1,28 @@
+{
+  "name": "ng-nestedtree",
+  "description": "Nested tree list directive for angular.js",
+  "version": "0.0.1",
+  "main": "dist/ng-nestedtree.min.js",
+  "authors": [
+    "Anton Nesterov"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular",
+    "nested",
+    "tree",
+    "tree"
+  ],
+  "homepage": "https://nesterov.pw/ng-nestedtree",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "build-demo"
+  ],
+  "dependencies": {
+    "angular": "~1.5.0"
+  }
+}

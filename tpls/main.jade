@@ -1,0 +1,3 @@
+.ngnestedtree-main
+  ul
+    li(ng-repeat="child in parent track by $index", ng-include="'/ng-nestedtree-templates/inside.html'", ng-click="elementClicked(child); $event.stopPropagation();")

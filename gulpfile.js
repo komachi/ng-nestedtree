@@ -115,7 +115,7 @@ gulp.task('minify-css', ['sass'], function() {
 });
 
 gulp.task('deploy', ['cdnize'], function() {
-  return gulp.src('./build-demo/**/*')
+  return gulp.src('build-demo/**')
     .pipe(ghPages());
 });
 
@@ -127,6 +127,10 @@ gulp.task('cdnize', ['build-demo'], function() {
         package: 'angular',
         cdn: '//ajax.googleapis.com/ajax/libs/angularjs/${ version }/' +
           'angular.min.js'
+      },
+      {
+        file: 'ng-nestedtree.js',
+        cdn: '//rawgit.com/komachi/ng-nestedtree/master/dist/ng-nestedtree.min.js'
       }]
     }))
     .pipe(gulp.dest('build-demo'));

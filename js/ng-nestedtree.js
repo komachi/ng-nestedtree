@@ -4,6 +4,7 @@ angular.module('ngNestedTree', ['ngNestedTreeTemplates'])
       restrict: 'E',
       scope: {
         parent: '=tree',
+        onExpandCb: '=?',
         onClickCb: '=?',
         onChildlessClickCb: '=?',
         selectOnlyChildless: '=?',
@@ -30,6 +31,11 @@ angular.module('ngNestedTree', ['ngNestedTreeTemplates'])
           }
           if (scope.onClickCb) {
             scope.onClickCb(child);
+          }
+        };
+        scope.elementExpand = function(child) {
+          if (scope.onExpandCb) {
+            scope.onExpandCb(child);
           }
         };
       }

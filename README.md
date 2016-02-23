@@ -55,7 +55,7 @@ angular.module('ngNestedTreeDemo', ['ngNestedTree'])
 
 ```html
 <div ng-controller="demo">
-  <ng-nested-tree tree="home" on-click-cb="cb" on-childless-click-cb="cb2" select-only-childless="true" expand="false"></ng-nested-tree>
+  <ng-nested-tree tree="home" on-click-cb="cb" on-childless-click-cb="cb2" on-expand-cb="cb3" select-only-childless="true" expand="false"></ng-nested-tree>
 </div>
 ```
 
@@ -63,11 +63,15 @@ angular.module('ngNestedTreeDemo', ['ngNestedTree'])
 
 #### tree
 
-Object contains the tree. There is no limit on allowed properties, but `childrens` is reserved as array for childrens.
+Object contains the tree. There is no limit on allowed properties, but `childs` is reserved as array for childs, `selected` is a boolean value determining if element is selected, and `expand` determine if an element should be expanded.
 
 ### on-click-cb
 
 Function to be triggered on element click. An element will be passed.
+
+### on-expand-cb
+
+Function to be triggered on expand. An element will be passed.
 
 ### on-childless-click-cb
 

@@ -1,64 +1,63 @@
-@mixin ul-before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  display: block;
-  width: 0;
-  border-left: 1px solid;
-  content: '';
-}
-
-%list-none {
-  list-style: none;
-}
-
 .ngnestedtree-main {
   ul {
-    @extend %list-none;
-  }
+    position: relative;
+    padding: 0 .2em;
+    overflow: hidden;
+    list-style-type: none;
 
-  * {
-    ul {
-      @extend %list-none;
-
-      position: relative;
-      padding: 0;
-
-      &:before {
-        @include ul-before;
+    &:first-child {
+      > li:first-child::before,
+      > li:first-child::after {
+        display: none;
       }
+    }
 
-      li {
-        position: relative;
-        padding: 0 1.5em;
-        margin: 0;
-        line-height: 2em;
-
-        &:before {
-          position: absolute;
-          top: 1em;
-          left: 0;
-          display: block;
-          width: 10px;
-          height: 0;
-          margin-top: -1px;
-          border-top: 1px solid;
-          content: '';
-        }
-
-        &:last-child:before {
-          top: 1em;
-          bottom: 0;
-          height: auto;
-          background: #fff;
-        }
+    &:last-child {
+      li:last-child:after {
+        height: 1.3em;
       }
     }
   }
 
+
+  li {
+    position: relative;
+    padding: 0 .75em;
+    margin: 0;
+
+    &::before {
+      top: .625em;
+      width: .625em;
+      height: 0;
+      border-top: 1px solid;
+    }
+
+    &:after {
+      top: -.625em;
+      width: 0;
+      height: 100%;
+      border-left: 1px solid;
+    }
+  }
+
+  li::before,
+  li::after {
+    position: absolute;
+    left: 0;
+    content: '';
+  }
+
+  > li::after {
+    top: .625em;
+  }
+
+  > li:last-child::after {
+    display: none;
+  }
+
   .ngnestedtree-title {
     padding: .2em;
+    margin-left: .5em;
 
     &:hover {
       cursor: pointer;
@@ -74,16 +73,10 @@
   .ngnestedtree-icon {
     width: 1em;
     height: 1em;
-    padding-right: .5em;
     cursor: pointer;
 
     &:after {
       content: '+';
     }
   }
-
-  &:before {
-    @include ul-before;
-  }
-
 }

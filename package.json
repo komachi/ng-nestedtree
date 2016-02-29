@@ -23,7 +23,6 @@
   },
   "homepage": "https://nesterov.pw/ng-nestedtree",
   "devDependencies": {
-    "conventional-github-releaser": "^1.1.0",
     "eslint-config-angular": "^0.4.0",
     "eslint-plugin-angular": "^0.15.0",
     "gulp": "^3.9.1",

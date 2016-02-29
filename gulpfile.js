@@ -14,7 +14,6 @@ var cssmin = require('gulp-cssmin');
 var rename = require('gulp-rename');
 var cdnizer = require('gulp-cdnizer');
 var ghPages = require('gulp-gh-pages');
-var conventionalGithubReleaser = require('conventional-github-releaser');
 var git = require('gulp-git');
 var fs = require('fs');
 var bump = require('gulp-bump');
@@ -145,16 +144,6 @@ gulp.task('cdnize', ['build-demo'], function() {
     .pipe(gulp.dest('build-demo'));
 });
 
-
-gulp.task('github-release', function(done) {
-  conventionalGithubReleaser({
-    type: 'oauth'
-  }, {
-    preset: 'angular'
-  }, done);
-});
-
-
 gulp.task('bump-version', function() {
   return gulp.src(['bower.json', 'package.json'])
     .pipe(bump({type: 'patch'}).on('error', gutil.log))
@@ -196,7 +185,6 @@ gulp.task('release', ['build', 'deploy'], function(callback) {
     'commit-changes',
     'push-changes',
     'create-new-tag',
-    'github-release',
     'npm-publish',
     function(error) {
       if (error) {

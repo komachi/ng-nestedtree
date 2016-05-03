@@ -84,3 +84,11 @@ Boolean, should be tree expanded by default. Default: `false`.
 ### select-only-childless
 
 Boolean, append `ngnestedtree-selected` class only on elements without children. Default: `false`.
+
+### selectOnlySelectable
+
+Boolean, append `ngnestedtree-selected` class only on elements with property `selectable`. Default: `false`.
+
+### select-cb
+
+Function to be triggered on selection. An element will be passed.

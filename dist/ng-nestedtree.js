@@ -20,7 +20,7 @@ angular.module('ngNestedTree', ['ngNestedTreeTemplates'])
         scope.elementClicked = function(child) {
           if (
             (scope.selectOnlyChildless && !child.childrens) ||
-            !scope.selectOnlyChildless || !scope.selectOnlySelectable ||
+            (!scope.selectOnlyChildless && !scope.selectOnlySelectable) ||
             (scope.selectOnlySelectable && child.selectable === true)
           ) {
             if (scope.latestClick) {
